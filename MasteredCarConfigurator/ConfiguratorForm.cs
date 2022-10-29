@@ -37,7 +37,7 @@ namespace MasteredCarConfigurator
             txtAcceleration.Text = "8.9 s";
             txtConsumption.Text = "49.6 mpg";
             txtCO2.Text = "130 g/km";
-            colourComboBox.Items.Add(new CarColour() { Colour = "White", Image = "WhiteCar.png"});
+            colourComboBox.Items.Add(new CarColour() { Colour = "White", Image = "WhiteCar.png"}); //Added white colour with white sports car image
             colourComboBox.Items.Add(new CarColour() { Colour = "Black", Image = "BlackCar.png"});
             colourComboBox.Items.Add(new CarColour() { Colour = "Metallic Red", Image = "RedCar.png"});
             colourComboBox.Items.Add(new CarColour() { Colour = "Metallic Blue", Image = "BlueCar.png" });
