@@ -37,10 +37,10 @@ namespace MasteredCarConfigurator
             txtAcceleration.Text = "8.9 s";
             txtConsumption.Text = "49.6 mpg";
             txtCO2.Text = "130 g/km";
-            colourComboBox.Items.Add(new CarColour() { Colour = "White", Image = "WhiteCar.png"}); //Added white colour with white sports car image
-            colourComboBox.Items.Add(new CarColour() { Colour = "Black", Image = "BlackCar.png"});
-            colourComboBox.Items.Add(new CarColour() { Colour = "Metallic Red", Image = "RedCar.png"});
-            colourComboBox.Items.Add(new CarColour() { Colour = "Metallic Blue", Image = "BlueCar.png" });
+            colourComboBox.Items.Add(new CarColour() { Colour = "White", Image = "WhiteCar.png"}); //Added white colour with white sports SE car image
+            colourComboBox.Items.Add(new CarColour() { Colour = "Black", Image = "BlackCar.png"}); //Added black colour with black sports SE car image
+            colourComboBox.Items.Add(new CarColour() { Colour = "Metallic Red", Image = "RedCar.png"}); //Added metallic red colour with red SE car image
+            colourComboBox.Items.Add(new CarColour() { Colour = "Metallic Blue", Image = "BlueCar.png" }); //Added metallic blue colour with blue SE car image
             modelComboBox.Items.Add(new CarModel() { Model = "Sport", Image = "BlackSportsCar.png" }); //Licence plate ending with 5046
             modelComboBox.Items.Add(new CarModel() { Model = "SE", Image = "BlackCar.png" }); //Licence plate ending with 8158
             modelComboBox.Items.Add(new CarModel() { Model = "M Sport", Image = "WhiteMSportsCar.png" }); //Licence plate ending with 1887
