@@ -48,12 +48,13 @@ namespace MasteredCarConfigurator
 
         private void colourComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (colourComboBox.SelectedIndex > -1) 
-            { 
+            switch (colourComboBox.SelectedIndex) 
+            {
+                case -1:
                 var imageName = ((CarColour)colourComboBox.SelectedItem).Image;
                 var file = System.IO.Path.Combine(Application.StartupPath, "Images", imageName);
                 carPhotoBox.Image = Image.FromFile(file);
-            
+                break;
             }
             //Differentiating between metallic (blue, red) and non-metallic colours (white, black)
             if (colourComboBox.SelectedIndex == 0 || colourComboBox.SelectedIndex == 1 && modelComboBox.SelectedIndex < -1)
@@ -143,14 +144,15 @@ namespace MasteredCarConfigurator
 
         private void modelComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (modelComboBox.SelectedIndex > -1)
+            switch (modelComboBox.SelectedIndex)
             {
+                case -1:
                 var spimageName = ((CarModel)modelComboBox.SelectedItem).Image;
                 var spfile = System.IO.Path.Combine(Application.StartupPath, "Images", spimageName);
                 carPhotoBox.Image = Image.FromFile(spfile);
-            }
-            if (modelComboBox.SelectedIndex == 0)
-            {
+                break;
+
+                case 0:
                 totalPrice = originalCarPrice + sportIncrease;
                 lblCarPrice.Text = totalPrice.ToString();
                 lblCarModel.Text = "BMW 118i Sport";
@@ -159,18 +161,18 @@ namespace MasteredCarConfigurator
                 txtConsumption.Text = totalConsumption.ToString() + " mpg";
                 totalCO2 = originalCO2 + sportCO2Increase;
                 txtCO2.Text = totalCO2.ToString() + " g/km";
-            }
-            if (modelComboBox.SelectedIndex == 1)
-            {
+                break;
+
+                case 1:
                 lblCarModel.Text = "BMW 118i SE";
                 lblCarPrice.Text = "27245";
                 txtEnginePerformance.Text = "100KW";
                 txtConsumption.Text = "49.6 mpg";
                 lblBMWModelBlurb.Text = "The SE model marks the entry point to the range, offering a high level of standard equipment and trademark BMW driving dynamics.";
                 txtCO2.Text = "130 g/km";
-            }
-            if (modelComboBox.SelectedIndex == 2)
-            {
+                break;
+
+                case 2:
                 totalPrice = originalCarPrice + mSportIncrease;
                 lblCarPrice.Text = totalPrice.ToString();
                 lblCarModel.Text = "BMW 118i M Sport";
@@ -179,6 +181,7 @@ namespace MasteredCarConfigurator
                 txtConsumption.Text = totalConsumption.ToString() + " mpg";
                 totalCO2 = originalCO2 + mSportCO2Increase;
                 txtCO2.Text = totalCO2.ToString() + " g/km";
+                break;
             }
             //Multiple if statements with AND operator for two combobox conditions e.g. if colour is white and model is Sport or if colour is white and model is SE
             if (colourComboBox.SelectedIndex == 0 && modelComboBox.SelectedIndex == 0)
