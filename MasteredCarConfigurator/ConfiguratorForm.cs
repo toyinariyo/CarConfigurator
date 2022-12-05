@@ -57,14 +57,20 @@ namespace MasteredCarConfigurator
                 break;
             }
             //Differentiating between metallic (blue, red) and non-metallic colours (white, black)
-            if (colourComboBox.SelectedIndex == 0 || colourComboBox.SelectedIndex == 1 && modelComboBox.SelectedIndex < -1)
+            switch (colourComboBox.SelectedIndex)
             {
-                lblCarPrice.Text = "27245";
+                case 0:
+                case 1 when modelComboBox.SelectedIndex < -1:
+                    lblCarPrice.Text = "27245";
+                    break;
             }
-            if (colourComboBox.SelectedIndex == 2 || colourComboBox.SelectedIndex == 3 && modelComboBox.SelectedIndex < -1) 
-           {
-               totalPrice = originalCarPrice + metallicPriceIncrease;
-               lblCarPrice.Text = totalPrice.ToString();
+            switch (colourComboBox.SelectedIndex)
+            {
+                case 2:
+                case 3 when modelComboBox.SelectedIndex < -1:
+                    totalPrice = originalCarPrice + metallicPriceIncrease;
+                    lblCarPrice.Text = totalPrice.ToString();
+                    break;
             }
             //Multiple if statements with AND operator for two combobox conditions e.g. if colour is white and model is Sport or if colour is white and model is SE
             if (colourComboBox.SelectedIndex == 0 && modelComboBox.SelectedIndex == 0)
