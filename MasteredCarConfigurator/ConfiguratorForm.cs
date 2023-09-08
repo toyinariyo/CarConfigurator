@@ -1,60 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MasteredCarConfigurator
 {
     public partial class ConfiguratorForm : Form
     {
-        readonly int originalCarPrice = 27245;
-        readonly int metallicPriceIncrease = 595;
-        readonly int sportIncrease = 1040;
-        readonly int mSportIncrease = 2840;
+        private const int originalCarPrice = 27245;
+        private const int metallicPriceIncrease = 595;
+        private const int sportIncrease = 1040;
+        private const int mSportIncrease = 2840;
         int totalPrice;
         readonly double sportConsumption = 0.9;
         readonly double originalConsumption = 49.6;
         readonly double mSportConsumption = 1.7;
         double totalConsumption;
-        readonly int originalCO2 = 130;
-        readonly int sportCO2Increase = 1;
-        readonly int mSportCO2Increase = 4;
+        private const int originalCO2 = 130;
+        private const int sportCO2Increase = 1;
+        private const int mSportCO2Increase = 4;
         int totalCO2;
+
+        
         public ConfiguratorForm()
         {
             InitializeComponent();
+            InitializeComboBoxes();
         }
 
-        private void ConfiguratorForm_Load(object sender, EventArgs e)
+        private void InitializeComboBoxes()
         {
             lblBMWModelBlurb.Text = "The SE model marks the entry point to the range, offering a high level of standard equipment and trademark BMW driving dynamics.";
             txtEnginePerformance.Text = "100KW";
             txtAcceleration.Text = "8.9 s";
             txtConsumption.Text = "49.6 mpg";
             txtCO2.Text = "130 g/km";
-            colourComboBox.Items.Add(new CarColour() { Colour = "White", Image = "WhiteCar.png"}); //Added white colour with white sports SE car image
-            colourComboBox.Items.Add(new CarColour() { Colour = "Black", Image = "BlackCar.png"}); //Added black colour with black sports SE car image
-            colourComboBox.Items.Add(new CarColour() { Colour = "Metallic Red", Image = "RedCar.png"}); //Added metallic red colour with red SE car image
+            colourComboBox.Items.Add(new CarColour() { Colour = "White", Image = "WhiteCar.png" }); //Added white colour with white sports SE car image
+            colourComboBox.Items.Add(new CarColour() { Colour = "Black", Image = "BlackCar.png" }); //Added black colour with black sports SE car image
+            colourComboBox.Items.Add(new CarColour() { Colour = "Metallic Red", Image = "RedCar.png" }); //Added metallic red colour with red SE car image
             colourComboBox.Items.Add(new CarColour() { Colour = "Metallic Blue", Image = "BlueCar.png" }); //Added metallic blue colour with blue SE car image
             modelComboBox.Items.Add(new CarModel() { Model = "Sport", Image = "BlackSportsCar.png" }); //Licence plate ending with 5046
             modelComboBox.Items.Add(new CarModel() { Model = "SE", Image = "BlackCar.png" }); //Licence plate ending with 8158
             modelComboBox.Items.Add(new CarModel() { Model = "M Sport", Image = "WhiteMSportsCar.png" }); //Licence plate ending with 1887
         }
 
-        private void colourComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void UpdatePriceandImage()
         {
-            switch (colourComboBox.SelectedIndex) 
+            if (modelComboBox.SelectedItem == null)
             {
+                // handle the error
+                return;
+            }
+
+            switch (colourComboBox.SelectedIndex)
+            {
+
                 case -1:
-                var imageName = ((CarColour)colourComboBox.SelectedItem).Image;
-                var file = System.IO.Path.Combine(Application.StartupPath, "Images", imageName);
-                carPhotoBox.Image = Image.FromFile(file);
-                break;
+                    var imageName = ((CarColour)colourComboBox.SelectedItem).Image;
+                    var file = System.IO.Path.Combine(Application.StartupPath, "Images", imageName);
+                    carPhotoBox.Image = Image.FromFile(file);
+                    break;
             }
             //Differentiating between metallic (blue, red) and non-metallic colours (white, black)
             switch (colourComboBox.SelectedIndex)
@@ -146,48 +150,45 @@ namespace MasteredCarConfigurator
                 totalPrice = originalCarPrice + mSportIncrease + metallicPriceIncrease;
                 lblCarPrice.Text = totalPrice.ToString();
             }
-        }
 
-        private void modelComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
             switch (modelComboBox.SelectedIndex)
             {
                 case -1:
-                var spimageName = ((CarModel)modelComboBox.SelectedItem).Image;
-                var spfile = System.IO.Path.Combine(Application.StartupPath, "Images", spimageName);
-                carPhotoBox.Image = Image.FromFile(spfile);
-                break;
+                        var spimageName = ((CarModel)modelComboBox.SelectedItem).Image;
+                        var spfile = System.IO.Path.Combine(Application.StartupPath, "Images", spimageName);
+                        carPhotoBox.Image = Image.FromFile(spfile);
+                        break;
 
                 case 0:
-                totalPrice = originalCarPrice + sportIncrease;
-                lblCarPrice.Text = totalPrice.ToString();
-                lblCarModel.Text = "BMW 118i Sport";
-                lblBMWModelBlurb.Text = "The Sport model offers a more athletic look with High-gloss Shadowline exterior design elements as well as upgraded light alloy wheels.";
-                totalConsumption = originalConsumption - sportConsumption;
-                txtConsumption.Text = totalConsumption.ToString() + " mpg";
-                totalCO2 = originalCO2 + sportCO2Increase;
-                txtCO2.Text = totalCO2.ToString() + " g/km";
-                break;
+                    totalPrice = originalCarPrice + sportIncrease;
+                    lblCarPrice.Text = totalPrice.ToString();
+                    lblCarModel.Text = "BMW 118i Sport";
+                    lblBMWModelBlurb.Text = "The Sport model offers a more athletic look with High-gloss Shadowline exterior design elements as well as upgraded light alloy wheels.";
+                    totalConsumption = originalConsumption - sportConsumption;
+                    txtConsumption.Text = totalConsumption.ToString() + " mpg";
+                    totalCO2 = originalCO2 + sportCO2Increase;
+                    txtCO2.Text = totalCO2.ToString() + " g/km";
+                    break;
 
                 case 1:
-                lblCarModel.Text = "BMW 118i SE";
-                lblCarPrice.Text = "27245";
-                txtEnginePerformance.Text = "100KW";
-                txtConsumption.Text = "49.6 mpg";
-                lblBMWModelBlurb.Text = "The SE model marks the entry point to the range, offering a high level of standard equipment and trademark BMW driving dynamics.";
-                txtCO2.Text = "130 g/km";
-                break;
+                    lblCarModel.Text = "BMW 118i SE";
+                    lblCarPrice.Text = "27245";
+                    txtEnginePerformance.Text = "100KW";
+                    txtConsumption.Text = "49.6 mpg";
+                    lblBMWModelBlurb.Text = "The SE model marks the entry point to the range, offering a high level of standard equipment and trademark BMW driving dynamics.";
+                    txtCO2.Text = "130 g/km";
+                    break;
 
                 case 2:
-                totalPrice = originalCarPrice + mSportIncrease;
-                lblCarPrice.Text = totalPrice.ToString();
-                lblCarModel.Text = "BMW 118i M Sport";
-                lblBMWModelBlurb.Text = "The M Sport model offers a sharpened appearance with M Sport aerodynamic bodystyling, High-gloss Shadowline exterior trim and 19\" M alloy wheels.";
-                totalConsumption = originalConsumption - mSportConsumption;
-                txtConsumption.Text = totalConsumption.ToString() + " mpg";
-                totalCO2 = originalCO2 + mSportCO2Increase;
-                txtCO2.Text = totalCO2.ToString() + " g/km";
-                break;
+                    totalPrice = originalCarPrice + mSportIncrease;
+                    lblCarPrice.Text = totalPrice.ToString();
+                    lblCarModel.Text = "BMW 118i M Sport";
+                    lblBMWModelBlurb.Text = "The M Sport model offers a sharpened appearance with M Sport aerodynamic bodystyling, High-gloss Shadowline exterior trim and 19\" M alloy wheels.";
+                    totalConsumption = originalConsumption - mSportConsumption;
+                    txtConsumption.Text = totalConsumption.ToString() + " mpg";
+                    totalCO2 = originalCO2 + mSportCO2Increase;
+                    txtCO2.Text = totalCO2.ToString() + " g/km";
+                    break;
             }
             //Multiple if statements with AND operator for two combobox conditions e.g. if colour is white and model is Sport or if colour is white and model is SE
             if (colourComboBox.SelectedIndex == 0 && modelComboBox.SelectedIndex == 0)
@@ -263,7 +264,22 @@ namespace MasteredCarConfigurator
             }
         }
 
+        private void colourComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdatePriceandImage();
+        }
+
+        private void modelComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdatePriceandImage();
+        }
+
         private void btnPrintCarModels_Click(object sender, EventArgs e)
+        {
+            PrintCarModels();
+        }
+
+        private void PrintCarModels()
         {
             carModelList.Items.Add(modelComboBox.Items[0]);
             carModelList.Items.Add("Consumption - 48.7 mpg");

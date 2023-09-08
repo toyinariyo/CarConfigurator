@@ -280,7 +280,6 @@
             this.Controls.Add(this.carPhotoBox);
             this.Name = "ConfiguratorForm";
             this.Text = "Configurator Form";
-            this.Load += new System.EventHandler(this.ConfiguratorForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.carPhotoBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
